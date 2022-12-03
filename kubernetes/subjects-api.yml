@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subjects-api
+  labels:
+    app: subjects
+spec:
+  selector:
+    matchLabels:
+      app: subjects
+      tier: api
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        app: subjects
+        tier: api
+    spec:
+      containers:
+      - name: subjects-api
+        image: danielescobar00/subjects-api:1.5

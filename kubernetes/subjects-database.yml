@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: subjects-db
+  labels:
+    app: subjects
+    tier: api-storage
+spec:
+  volumes:
+    - name: persistent-volume-storage
+      persistentVolumeClaim:
+        claimName: persistence-volume-claim
+  containers:
+    - name: subjects-db-container
+      image: postgres:latest
+      env:
+        - name: POSTGRES_PASSWORD
+          value: "secret"
+        - name: POSTGRES_DB
+          value: "subjects"
+        - name: POSTGRES_USER
+          value: "danes"
+      ports:
+        - containerPort: 5432
+          name: "subjects-db"
+      volumeMounts:
+        - mountPath: "/var/lib/postgresql/data"
+          name: persistent-volume-storage
